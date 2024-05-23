@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import PageCamera from './Pages/PageCamera';
+/* import PageCamera from './Pages/PageCamera'; */
 import {
   StyleSheet,
   View,
@@ -38,14 +38,14 @@ const App = () => {
       <TouchableOpacity onPress={startAnimation}>
         <Animated.View style={[styles.box, { opacity, transform: [{ scale }] }]}>
           <Text style={styles.text}>Tap me!</Text>
-          <PageCamera/>
+          {/* <PageCamera/> */}
         </Animated.View>
       </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({/* ".... " */
   container: {
     flex: 1,
     alignItems: 'center',
@@ -55,15 +55,13 @@ const styles = StyleSheet.create({
   box: {
     width: 200,
     height: 200,
-    backgroundColor: 'black',
+    backgroundColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    color: 'red',
+    color: 'white',
   },
 });
 
 export default App;
-
-//test Bryen

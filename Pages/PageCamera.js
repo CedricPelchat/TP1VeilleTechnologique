@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Button, Image, StyleSheet } from 'react-native';
-import { launchCamera } from 'react-native-image-picker';
-import ImageEditor from '@react-native-community/image-editor';
+/* import { launchCamera } from 'react-native-image-picker';
+import * as ImageManipulator from 'expo-image-manipulator'; */
 
 const PageCamera = () => {
   /* const [photo, setPhoto] = useState(null);
