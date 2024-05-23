@@ -43,7 +43,7 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({/* "....Commentaire Ced " */
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -53,13 +53,15 @@ const styles = StyleSheet.create({/* "....Commentaire Ced " */
   box: {
     width: 200,
     height: 200,
-    backgroundColor: 'blue',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    color: 'white',
+    color: 'red',
   },
 });
 
 export default App;
+
+//test Bryen
