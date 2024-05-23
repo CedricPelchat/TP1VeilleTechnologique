@@ -16,6 +16,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "^0.74.1",
+    "react-native-image-editor": "^0.0.1",
+    "react-native-image-picker": "^7.1.2",
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {
