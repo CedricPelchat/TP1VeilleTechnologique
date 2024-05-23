@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-/* import PageCamera from './Pages/PageCamera'; */
+import PageCamera from './Pages/PageCamera';
 import {
   StyleSheet,
   View,
@@ -38,7 +38,7 @@ const App = () => {
       <TouchableOpacity onPress={startAnimation}>
         <Animated.View style={[styles.box, { opacity, transform: [{ scale }] }]}>
           <Text style={styles.text}>Tap me!</Text>
-          {/* <PageCamera/> */}
+          <PageCamera/>
         </Animated.View>
       </TouchableOpacity>
     </View>
