@@ -43,7 +43,7 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({/* ".... " */
+const styles = StyleSheet.create({/* "....Commentaire Ced " */
   container: {
     flex: 1,
     alignItems: 'center',
