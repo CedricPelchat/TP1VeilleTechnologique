@@ -1,67 +1,24 @@
-import React, { useRef } from 'react';
-/* import PageCamera from './Pages/PageCamera'; */
-import {
-  StyleSheet,
-  View,
-  Animated,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import PageAccueil from './Pages/PageAccueil';
+import PageAnthony from './Pages/PageAnthony';
+import PageBryen from './Pages/PageBryen';
+import PageCedric from './Pages/PageCedric';
+import PageThomas from './Pages/PageThomas';
 
-const App = () => {
-  const opacity = useRef(new Animated.Value(0)).current;
-  const scale = useRef(new Animated.Value(0.5)).current;
+const Stack = createStackNavigator();
 
-  // Function to start the animation
-  const startAnimation = () => {
-    // First reset the animated values
-    opacity.setValue(0);
-    scale.setValue(0.5);
-
-    // Start the parallel animation
-    Animated.parallel([
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
-      Animated.timing(scale, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      })
-    ]).start();
-  };
-
+export default function App() {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={startAnimation}>
-        <Animated.View style={[styles.box, { opacity, transform: [{ scale }] }]}>
-          <Text style={styles.text}>Tap me!</Text>
-          {/* <PageCamera/> */}
-        </Animated.View>
-      </TouchableOpacity>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="PageAccueil">
+        <Stack.Screen name="Accueil" component={PageAccueil} />
+        <Stack.Screen name="Anthony" component={PageAnthony} />
+        <Stack.Screen name="Bryen" component={PageBryen} />
+        <Stack.Screen name="Cedric" component={PageCedric} />
+        <Stack.Screen name="Thomas" component={PageThomas} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-
-const styles = StyleSheet.create({/* ".... " */
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f5fcff',
-  },
-  box: {
-    width: 200,
-    height: 200,
-    backgroundColor: 'blue',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'white',
-  },
-});
-
-export default App;
+}
