@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground  } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import Header from '../Composants/Header';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function PageAccueil({ navigation }) {
   return (
@@ -20,7 +23,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundImage: {
-    flex: 1,
+    width: windowWidth,
+    height: windowHeight,
     resizeMode: 'cover',
     justifyContent: 'center',
     alignItems: 'center',
