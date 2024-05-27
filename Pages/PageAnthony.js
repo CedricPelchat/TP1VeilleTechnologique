@@ -111,7 +111,6 @@ export default function PageAnthony({ navigation }) {
 			/>
 
 			<MapView
-				provider={PROVIDER_GOOGLE}
 				style={styles.map}
 				region={region}
 				showsUserLocation
