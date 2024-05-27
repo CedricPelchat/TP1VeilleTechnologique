@@ -17,29 +17,41 @@ export default function PageAnthony({ navigation }) {
 	const [markers, setMarkers] = useState([]);
 
 	useEffect(() => {
+		let locationSubscription;
+
 		const requestLocationPermission = async () => {
-			if (Platform.OS === 'android') {
-				const granted = await PermissionsAndroid.request(
-					PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-					{
-						title: 'Location Permission',
-						message: 'This app needs access to your location',
-						buttonNeutral: 'Ask Me Later',
-						buttonNegative: 'Cancel',
-						buttonPositive: 'OK',
-					}
-				);
-				if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-					getCurrentLocation().catch(error => console.log(error));
-				} else {
-					console.log('Location permission denied');
-				}
-			} else {
-				getCurrentLocation().catch(error => console.log(error));
+			let { status } = await Location.requestForegroundPermissionsAsync();
+			if (status !== 'granted') {
+				console.log('Permission to access location was denied');
+				return;
 			}
+
+			locationSubscription = await Location.watchPositionAsync(
+				{
+					accuracy: Location.Accuracy.High,
+					timeInterval: 1000,  // Update every 1 second
+					distanceInterval: 1, // Or every 1 meter
+				},
+				(location) => {
+					const { latitude, longitude } = location.coords;
+					setRegion({
+						latitude,
+						longitude,
+						latitudeDelta: 0.0922,
+						longitudeDelta: 0.0421,
+					});
+				}
+			);
 		};
 
 		requestLocationPermission();
+
+		// Clean up the subscription on unmount
+		return () => {
+			if (locationSubscription) {
+				locationSubscription.remove();
+			}
+		};
 	}, []);
 
 	const getCurrentLocation = async () => {

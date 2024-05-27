@@ -15,7 +15,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app requires access to your location",
+        "NSLocationAlwaysUsageDescription": "This app requires access to your location"
+      }
     },
     "android": {
       "adaptiveIcon": {
