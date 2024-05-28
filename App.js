@@ -5,8 +5,11 @@ import PageAccueil from './Pages/PageAccueil';
 import PageAnthony from './Pages/PageAnthony';
 import PageBryen from './Pages/PageBryen';
 import PageCedric from './Pages/PageCedric';
-import PageThomas from './Pages/PageThomas';
-
+import HomeScreen from './Screen/HomeScreen';
+import RecipeScreen from './Screen/RecipeScreen';
+import MealPlannerScreen from './Screen/MealPlannerScreen';
+import FavoritesScreen from './Screen/FavoritesScreen';
+import ShoppingListScreen from './Screen/ShoppingListScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -17,8 +20,16 @@ export default function App() {
         <Stack.Screen name="Anthony" component={PageAnthony} />
         <Stack.Screen name="Bryen" component={PageBryen} />
         <Stack.Screen name="Cedric" component={PageCedric} />
-        <Stack.Screen name="Thomas" component={PageThomas} />
+
+        {/* /* Thomas Begin */}
+        <Stack.Screen name="Thomas" component={HomeScreen} />
+        <Stack.Screen name="Recipe" component={RecipeScreen} />
+        <Stack.Screen name="Favorites" component={FavoritesScreen} options={{ title: 'Favorites' }} />
+        <Stack.Screen name="MealPlanner" component={MealPlannerScreen} options={{ title: 'Meal Planner' }} />
+        <Stack.Screen name="ShoppingList" component={ShoppingListScreen} />
+        {/* Thomas End  */}
+
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  ); 
 }
