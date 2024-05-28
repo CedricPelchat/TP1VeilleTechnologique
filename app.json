@@ -17,11 +17,8 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["fetch","remote-notification"],
-        "NSLocationWhenInUseUsageDescription": "This app uses the location to send you notifications."
-      },
-      "config": {
-        "googleMapsApiKey": "AIzaSyAzIzxinJWeELyZrMaa0GJT-Rl7OVF0Vdg"
+        "NSLocationWhenInUseUsageDescription": "This app requires access to your location",
+        "NSLocationAlwaysUsageDescription": "This app requires access to your location"
       }
     },
     "android": {
@@ -34,10 +31,9 @@
       },
       "config": {
         "googleMaps": {
-          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+          "apiKey": "AIzaSyCPBT9wpdOQcd_FklvW-MJ1R9LGhuebH-k"
         }
-      },
-      "useNextNotificationsApi": true
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
