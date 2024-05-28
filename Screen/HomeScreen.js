@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, FlatList, TextInput, Alert, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, TextInput, Alert, Image, TouchableOpacity,Platform} from 'react-native';
 import * as Speech from 'expo-speech';
 import Voice from '@react-native-voice/voice';
 import { useNavigation } from '@react-navigation/native';

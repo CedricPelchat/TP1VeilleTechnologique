@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, Platform } from 'react-native';
 import * as Speech from 'expo-speech';
 import Voice from '@react-native-voice/voice';
 
@@ -9,11 +9,13 @@ export default function RecipeScreen({ route }) {
   const [isReading, setIsReading] = useState(false);
 
   useEffect(() => {
-    Voice.onSpeechResults = onSpeechResults;
-    Voice.onSpeechError = onSpeechError;
-    return () => {
-      Voice.destroy().then(Voice.removeAllListeners);
-    };
+    if (Platform.OS !== 'web') {
+      Voice.onSpeechResults = onSpeechResults;
+      Voice.onSpeechError = onSpeechError;
+      return () => {
+        Voice.destroy().then(Voice.removeAllListeners);
+      };
+    }
   }, []);
 
   const onSpeechResults = (e) => {
@@ -30,18 +32,22 @@ export default function RecipeScreen({ route }) {
   };
 
   const startListening = async () => {
-    try {
-      await Voice.start('fr-FR');
-    } catch (e) {
-      console.error(e);
+    if (Platform.OS !== 'web') {
+      try {
+        await Voice.start('fr-FR');
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
   const stopListening = async () => {
-    try {
-      await Voice.stop();
-    } catch (e) {
-      console.error(e);
+    if (Platform.OS !== 'web') {
+      try {
+        await Voice.stop();
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 

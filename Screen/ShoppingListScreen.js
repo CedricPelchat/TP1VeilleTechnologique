@@ -4,7 +4,7 @@ import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 
 export default function ShoppingListScreen({ route }) {
-  const { mealPlan } = route.params;
+  const { mealPlan } = route.params; 
   const [shoppingList, setShoppingList] = useState([]);
 
   useEffect(() => {
