@@ -11,8 +11,8 @@ const Map = Platform.select({
 
 export default function PageAnthony({ navigation }) {
   const [region, setRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 46.8139,
+    longitude: -71.2082,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -87,6 +87,10 @@ export default function PageAnthony({ navigation }) {
         query={{
           key: 'AIzaSyCPBT9wpdOQcd_FklvW-MJ1R9LGhuebH-k',
           language: 'en',
+        }}
+        requestUrl={{
+          url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
+          useOnPlatform: 'web', // this will tell the component to use the requestUrl on web platform
         }}
         styles={{
           container: {

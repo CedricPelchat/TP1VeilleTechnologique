@@ -3,15 +3,6 @@ import { MapContainer, TileLayer, Marker, useMapEvent } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const MapWeb = ({ region, markers, onRegionChangeComplete, onPress }) => {
-  const map = useMapEvent('moveend', () => {
-    const { lat, lng } = map.getCenter();
-    onRegionChangeComplete({ latitude: lat, longitude: lng });
-  });
-
-  useMapEvent('click', (e) => {
-    onPress({ nativeEvent: { coordinate: e.latlng } });
-  });
-
   return (
     <MapContainer
       center={[region.latitude, region.longitude]}
@@ -22,13 +13,29 @@ const MapWeb = ({ region, markers, onRegionChangeComplete, onPress }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {markers.map((marker, index) => (
-        <Marker
-          key={index}
-          position={[marker.latitude, marker.longitude]}
-        />
+        marker.latitude !== undefined && marker.longitude !== undefined && (
+          <Marker
+            key={index}
+            position={[marker.latitude, marker.longitude]}
+          />
+        )
       ))}
+      <MapEvents onRegionChangeComplete={onRegionChangeComplete} onPress={onPress} />
     </MapContainer>
   );
+};
+
+const MapEvents = ({ onRegionChangeComplete, onPress }) => {
+  const map = useMapEvent('moveend', () => {
+    const { lat, lng } = map.getCenter();
+    onRegionChangeComplete({ latitude: lat, longitude: lng });
+  });
+
+  useMapEvent('click', (e) => {
+    onPress({ nativeEvent: { coordinate: e.latlng } });
+  });
+
+  return null;
 };
 
 export default MapWeb;
