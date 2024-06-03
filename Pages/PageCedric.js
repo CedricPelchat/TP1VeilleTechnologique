@@ -1,90 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,  Platform } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import { Camera } from 'expo-camera';
+import { StatusBar } from 'expo-status-bar';
 import Header from '../Composants/Header';
-import * as Haptics from 'expo-haptics';
-import Draggable from 'react-draggable';
-// Check if running on web to import lottie-web
-let LottieView;
-if (Platform.OS === 'web') {
-  // On web, use lottie-web
-  LottieView = require('lottie-web').default;
-} else {
-  // On React Native, use lottie-react-native
-  LottieView = require('lottie-react-native').default;
-}
-
-export default function PageCedric({ navigation }) {
-  const [positions, setPositions] = useState({
-    animation1: { x: 0, y: 0 },
-    animation2: { x: 0, y: 0 },
-    animation3: { x: 0, y: 0 },
-  });
-
-  const handleDragStop = (animationType, e, data) => {
-    setPositions({
-      ...positions,
-      [animationType]: { x: 0, y: 0 }, // Reset position to initial
-    });
-  };
 
 
-  const handleAnimationPress = (animationType) => {
-    switch(animationType) {
-      case 'animation1':
-        Haptics.notificationAsync('error', { enableVibrateFallback: true });
-        break;
-      case 'animation2':
-        Haptics.notificationAsync('warning', { enableVibrateFallback: true });
-        break;
-      case 'animation3':
-        Haptics.notificationAsync('success', { enableVibrateFallback: true });
-        break;
+
+
+const PageCedric = ({ navigation }) => {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [cameraRef, setCameraRef] = useState(null);
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  const takePicture = async () => {
+    if (cameraRef) {
+      let newPhoto = await cameraRef.takePictureAsync();
+      setPhoto(newPhoto.uri);
     }
   };
 
   return (
     <View style={styles.container}>
       <Header navigation={navigation} currentScreen="Cedric" />
-      <Text style={styles.title}>Cedric</Text>
-      <TouchableOpacity onPress={() => handleAnimationPress('animation1')}>
-        <LottieView
-          source={require('../assets/Animation1.json')}
-          autoPlay
-          loop
-          style={styles.lottie}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleAnimationPress('animation2')}>
-        <LottieView
-          source={require('../assets/Animation2.json')}
-          autoPlay
-          loop
-          style={styles.lottie}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleAnimationPress('animation3')}>
-        <LottieView
-          source={require('../assets/Animation3.json')}
-          autoPlay
-          loop
-          style={styles.lottie}
-        />
-      </TouchableOpacity>
+      {hasPermission === null ? <View /> : hasPermission === false ? <Text>No access to camera</Text> : (
+        <View style={styles.cameraContainer}>
+          <Camera style={styles.camera} ref={ref => setCameraRef(ref)}>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Take Photo"
+                onPress={takePicture}
+              />
+            </View>
+          </Camera>
+          {photo && <Image source={{ uri: photo }} style={styles.preview} />}
+        </View>
+      )}
+      <StatusBar style="auto" />
     </View>
   );
-}
-
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
+  cameraContainer: {
+    flex: 1,
+    width: '100%',
   },
-  lottie: {
-    width: 200,
-    height: 200,
+  camera: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    margin: 20,
+    justifyContent: 'center',
+  },
+  preview: {
+    flex: 0.4,
+    width: '100%',
+    resizeMode: 'contain',
   },
 });
+export default PageCedric;

@@ -18,7 +18,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app requires access to your location",
-        "NSLocationAlwaysUsageDescription": "This app requires access to your location"
+        "NSLocationAlwaysUsageDescription": "This app requires access to your location",
+        "NSCameraUsageDescription": "We need access to your camera to take photos."
       }
     },
     "android": {
