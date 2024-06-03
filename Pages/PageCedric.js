@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import Header from '../Composants/Header';
 
 const PageCedric = ({ navigation }) => {
-  const [googleUrl, setGoogleUrl] = useState('https://www.google.com');
+  const [googleUrl, setGoogleUrl] = useState('https://flappybird.io');
 
   return (
     <View style={styles.container}>
