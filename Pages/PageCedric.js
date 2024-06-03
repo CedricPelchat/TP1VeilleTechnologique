@@ -1,65 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
-import { Camera } from 'expo-camera';
+import { WebView } from 'react-native-webview';
 import { StatusBar } from 'expo-status-bar';
 import Header from '../Composants/Header';
 
-
-
-
 const PageCedric = ({ navigation }) => {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [cameraRef, setCameraRef] = useState(null);
-  const [photo, setPhoto] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
-
-  const takePicture = async () => {
-    if (cameraRef) {
-      let newPhoto = await cameraRef.takePictureAsync();
-      setPhoto(newPhoto.uri);
-    }
-  };
+  const [googleUrl, setGoogleUrl] = useState('https://www.google.com');
 
   return (
     <View style={styles.container}>
       <Header navigation={navigation} currentScreen="Cedric" />
-      {hasPermission === null ? <View /> : hasPermission === false ? <Text>No access to camera</Text> : (
-        <View style={styles.cameraContainer}>
-          <Camera style={styles.camera} ref={ref => setCameraRef(ref)}>
-            <View style={styles.buttonContainer}>
-              <Button
-                title="Take Photo"
-                onPress={takePicture}
-              />
-            </View>
-          </Camera>
-          {photo && <Image source={{ uri: photo }} style={styles.preview} />}
-        </View>
-      )}
+      <View style={styles.webViewContainer}>
+        <WebView
+          source={{ uri: googleUrl }}
+          style={styles.webView}
+        />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cameraContainer: {
+  webViewContainer: {
     flex: 1,
     width: '100%',
   },
-  camera: {
+  webView: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
   },
   buttonContainer: {
     backgroundColor: 'transparent',
@@ -67,10 +40,6 @@ const styles = StyleSheet.create({
     margin: 20,
     justifyContent: 'center',
   },
-  preview: {
-    flex: 0.4,
-    width: '100%',
-    resizeMode: 'contain',
-  },
 });
+
 export default PageCedric;
